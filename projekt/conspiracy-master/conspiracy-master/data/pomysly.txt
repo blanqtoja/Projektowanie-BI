@@ -1,0 +1,45 @@
+Mając do dyspozycji taki zestaw danych, w Power BI możesz wyjść daleko poza zwykłe sumowanie wyświetleń. Połączenie twardych wskaźników popularności (wyświetlenia, polubienia) z miękkimi metrykami jakościowymi (prawdopodobieństwo teorii spiskowej, przynależność do tematu) daje świetne pole do analizy.
+
+Oto 5 propozycji bardzo interesujących, syntetycznych wskaźników (miar i kolumn kalkulowanych), które wzniosą Twój raport na wyższy poziom:
+
+### 1. Wskaźnik Zasięgu Dezinformacji (Misinformation Impact Score)
+
+Sam współczynnik `conspiracy_likelihood` nie mówi nam, jak duży jest problem – 99% spisku przy 10 wyświetleniach jest niegroźne. Prawdziwe zagrożenie to filmy z wysokim wskaźnikiem i milionowymi zasięgami.
+
+* **Logika:** `conspiracy_likelihood * view_count` (można zlogarytmować tę wartość, aby wyrównać ogromne różnice w wyświetleniach).
+* **Wartość analityczna:** Pozwala natychmiast zidentyfikować filmy i kanały, które są "super-nosicielami" (superspreaders) teorii spiskowych. Świetnie sprawdzi się na wykresie typu Scatter Plot (Oś X: wyświetlenia, Oś Y: prawdopodobieństwo spisku, Rozmiar bąbelka: Wskaźnik Zasięgu).
+
+### 2. Siła Wsparcia Algorytmu (Algorithmic Boost Index)
+
+Chcemy sprawdzić, czy algorytm platformy (np. YouTube) "lubi" dane filmy i napędza im ruch, czy też ruch pochodzi z zewnątrz.
+
+* **Logika:** `reco_count / view_count` (wyrażone jako procent lub wskaźnik na 1000 wyświetleń).
+* **Wartość analityczna:** Odpowiada na krytyczne pytanie: czy system rekomendacji faworyzuje filmy o wysokim `conspiracy_likelihood`? Jeśli wskaźnik ten rośnie wraz ze wzrostem szansy na teorię spiskową, udowadnia to, że algorytm napędza radykalizację.
+
+### 3. Prawdziwe Zaangażowanie (True Engagement Rate)
+
+Puste wyświetlenia to jedno, ale to interakcje pokazują, jak bardzo materiał rezonuje z widzem.
+
+* **Logika:** `(like_count + comment_count) / view_count`.
+* **Wartość analityczna:** Teorie spiskowe często bazują na emocjach, które zmuszają do kliknięcia "lubię to" lub wejścia w polemikę. Wskaźnik ten pozwala porównać, czy dany `topic_number` (np. UFO vs polityka) buduje bierną widownię, czy zagorzałą społeczność.
+
+### 4. Wskaźnik "Bańki Informacyjnej" vs. Polaryzacja (Echo Chamber Ratio)
+
+Stosunek komentarzy do polubień potrafi zdradzić, co dzieje się pod filmem.
+
+* **Logika:** `comment_count / like_count`.
+* **Wartość analityczna:** * **Niski wynik (dużo lajków, mało komentarzy):** Wskazuje na silną "bańkę informacyjną" – widzowie oglądają, zgadzają się i idą dalej. Nikt nie polemizuje.
+* **Wysoki wynik (dużo komentarzy w stosunku do lajków):** Wskazuje na materiał wysoce kontrowersyjny i polaryzujący, pod którym toczy się zaciekła wojna w komentarzach. Zestawienie tego z `conspiracy_likelihood` pokazuje, czy dana teoria jest powszechnie akceptowana przez widzów kanału, czy budzi sprzeciw.
+
+
+
+### 5. Ważona "Toksyczność" Tematu (Weighted Topic Toxicity)
+
+Zamiast patrzeć na pojedyncze filmy, warto zagregować dane na poziom tematów (`topic_number`), aby zobaczyć makro-trendy.
+
+* **Logika:** Średnia wartość `conspiracy_likelihood` dla danego `topic_number`, ale **ważona** liczbą rekomendacji (`reco_count`) lub wyświetleń (`view_count`).
+* **Wartość analityczna:** Pozwala stworzyć mapę cieplną (Heatmap) dla tematów. Możesz dzięki temu prześledzić w czasie (`query_date`), które grupy tematyczne stają się coraz bardziej nasycone teoriami spiskowymi i jednocześnie zdobywają coraz większy ruch.
+
+---
+
+Czy chciałabyś, abym przygotował dla któregoś z tych wskaźników gotowy kod w języku DAX, który od razu wkleisz do Power BI?

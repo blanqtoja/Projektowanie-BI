@@ -1,0 +1,9 @@
+Dynamika Wirusowa (Viral Potential Index)
+Niektóre filmy zdobywają wyświetlenia, ale nie generują silnych emocji, a inne wręcz przeciwnie – stają się viralami.
+
+Metoda: Stworzenie wskaźnika opartego na stosunku zaangażowania (polubienia + komentarze) do wyświetleń, w połączeniu z reco_count.
+
+Przykładowe wartości: Możesz przypisać filmy do kwartyli (np. Top 25% Most Viral).
+
+Wartość analityczna: Wyszukiwanie filmów, które mają "wybuchowy" potencjał rozprzestrzeniania się, co jest kluczowe w analizie dezinformacji.
+
